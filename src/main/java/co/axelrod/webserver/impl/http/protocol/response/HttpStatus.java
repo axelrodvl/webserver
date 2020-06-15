@@ -1,4 +1,4 @@
-package co.axelrod.webserver.protocol.http.response;
+package co.axelrod.webserver.impl.http.protocol.response;
 
 public enum HttpStatus {
     OK(200, "OK"),

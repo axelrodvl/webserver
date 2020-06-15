@@ -1,13 +1,14 @@
-package co.axelrod.webserver.protocol.http.request;
+package co.axelrod.webserver.impl.http.protocol.request;
 
-import co.axelrod.webserver.protocol.http.HttpMethod;
+import co.axelrod.webserver.protocol.Request;
+import co.axelrod.webserver.impl.http.protocol.HttpMethod;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
-public class HttpRequest {
+public class HttpRequest extends Request {
     private HttpMethod httpMethod;
 
     private String absolutePath;
@@ -38,7 +39,7 @@ public class HttpRequest {
     private void parseRequestUri(String requestUri) {
         String[] parts = requestUri.split("\\?");
         this.absolutePath = parts[0];
-        if(parts.length > 1) {
+        if (parts.length > 1) {
             this.query = parts[1];
         }
     }

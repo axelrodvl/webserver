@@ -1,10 +1,12 @@
-package co.axelrod.webserver.protocol.http.response;
+package co.axelrod.webserver.impl.http.protocol.response;
+
+import co.axelrod.webserver.protocol.Response;
 
 import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
 
-public class HttpResponse {
+public class HttpResponse extends Response {
     private static final String CRLF = "\r\n";
 
     private final String httpVersion = "HTTP/1.1";
@@ -25,7 +27,7 @@ public class HttpResponse {
     public void writeResponse(OutputStream out) throws IOException {
         out.write(getStatusLine());
 
-        if(body != null) {
+        if (body != null) {
             out.write(getContentLength());
             out.write(CRLF.getBytes(StandardCharsets.UTF_8));
             out.write(body);
