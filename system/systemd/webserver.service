@@ -1,0 +1,14 @@
+[Unit]
+Description=WebServer
+After=syslog.target
+
+[Service]
+User=vadim
+ExecStart=/opt/webserver/run.sh
+WorkingDirectory=/opt/webserver
+Restart=always
+RestartSec=2
+SuccessExitStatus=143
+
+[Install]
+WantedBy=multi-user.target

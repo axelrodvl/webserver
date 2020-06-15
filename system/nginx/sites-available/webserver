@@ -1,0 +1,24 @@
+server {
+    server_name axelrod.co www.axelrod.co;
+
+    listen [::]:4439 ssl ipv6only=on; # managed by Certbot
+    listen 4439 ssl; # managed by Certbot
+    ssl_certificate /etc/letsencrypt/live/axelrod.co/fullchain.pem; # managed by Certbot
+    ssl_certificate_key /etc/letsencrypt/live/axelrod.co/privkey.pem; # managed by Certbot
+    include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
+    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
+    access_log /var/log/nginx/tou.log combined;
+
+    location / {
+      proxy_set_header        Host $host;
+      proxy_set_header        X-Real-IP $remote_addr;
+      proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
+      proxy_set_header        X-Forwarded-Proto $scheme;
+
+      # Fix the “It appears that your reverse proxy set up is broken" error.
+      proxy_pass          http://localhost:8087;
+      proxy_read_timeout  90;
+
+      proxy_redirect      http://localhost:8087 https://axelrod.co;
+    }
+}
