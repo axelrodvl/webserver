@@ -10,14 +10,18 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 
 public class HttpRequestHandler implements RequestHandler<HttpRequest, HttpResponse> {
-    private static final String ROOT_PATH = "/Users/vadim/work/webserver/src/main/resources/html";
+    private final String rootPath;
 
-    public static byte[] getFileByPath(String path) throws IOException {
-        path = normalizePath(path);
-        return Files.readAllBytes(Path.of(ROOT_PATH + path));
+    public HttpRequestHandler(String rootPath) {
+        this.rootPath = rootPath;
     }
 
-    private static String normalizePath(String path) {
+    public byte[] getFileByPath(String path) throws IOException {
+        path = normalizePath(path);
+        return Files.readAllBytes(Path.of(rootPath + path));
+    }
+
+    private String normalizePath(String path) {
         return "/".equals(path) ? "/index.html" : path;
     }
 

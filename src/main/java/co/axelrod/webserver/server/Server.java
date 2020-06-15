@@ -7,10 +7,12 @@ import java.net.Socket;
 public abstract class Server {
     private volatile boolean running = true;
 
-    private final int port;
+    protected final int port;
+    protected final String rootPath;
 
-    public Server(int port) {
+    public Server(int port, String rootPath) {
         this.port = port;
+        this.rootPath = rootPath;
     }
 
     public void start() {
