@@ -24,7 +24,7 @@ public class HttpRequest extends Request {
 
         parseRequestLine(line);
 
-        while (!line.isBlank()) {
+        while (!line.isEmpty()) {
             line = bufferedReader.readLine();
         }
     }
