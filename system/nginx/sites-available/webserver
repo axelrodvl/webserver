@@ -1,13 +1,13 @@
 server {
     server_name axelrod.co www.axelrod.co;
 
-    listen [::]:4439 ssl ipv6only=on; # managed by Certbot
-    listen 4439 ssl; # managed by Certbot
+    listen [::]:4450 ssl ipv6only=on; # managed by Certbot
+    listen 4450 ssl; # managed by Certbot
     ssl_certificate /etc/letsencrypt/live/axelrod.co/fullchain.pem; # managed by Certbot
     ssl_certificate_key /etc/letsencrypt/live/axelrod.co/privkey.pem; # managed by Certbot
     include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
     ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
-    access_log /var/log/nginx/tou.log combined;
+    access_log /var/log/nginx/webserver.log combined;
 
     location / {
       proxy_set_header        Host $host;
