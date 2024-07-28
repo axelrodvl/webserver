@@ -7,9 +7,14 @@ public class WebServer {
     private static final String DEFAULT_ROOT_PATH = "html";
 
     public static void main(String[] args) {
-        HttpServer httpServer = new HttpServer(getPort(args), getRootPath(args));
+        HttpServer httpServer = new HttpServer(8087, "/Users/vaxelrod/work/webserver/src/main/resources/html");
         httpServer.start();
     }
+
+//    public static void main(String[] args) {
+//        HttpServer httpServer = new HttpServer(getPort(args), getRootPath(args));
+//        httpServer.start();
+//    }
 
     private static int getPort(String[] args) {
         int port;

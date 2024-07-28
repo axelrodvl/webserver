@@ -1,5 +1,7 @@
 package co.axelrod.webserver.impl.http.protocol;
 
+import co.axelrod.webserver.blog.MainPage;
+import co.axelrod.webserver.markdown.MarkdownParser;
 import co.axelrod.webserver.protocol.RequestHandler;
 import co.axelrod.webserver.impl.http.protocol.request.HttpRequest;
 import co.axelrod.webserver.impl.http.protocol.response.HttpResponse;
@@ -36,9 +38,21 @@ public class HttpRequestHandler implements RequestHandler<HttpRequest, HttpRespo
 
     @Override
     public HttpResponse handleRequest(HttpRequest request) throws IOException {
-        return new HttpResponse(
-                HttpStatus.OK,
-                getFileByPath(request.getAbsolutePath())
-        );
+        if (request.getAbsolutePath().equals("/")) {
+            return new HttpResponse(
+                    HttpStatus.OK,
+                    MainPage.getArticles(rootPath).getBytes()
+            );
+        } else if (request.getAbsolutePath().contains("article")) {
+            return new HttpResponse(
+                    HttpStatus.OK,
+                    MarkdownParser.convertToHtml(getFileByPath(request.getAbsolutePath()))
+            );
+        } else {
+            return new HttpResponse(
+                    HttpStatus.OK,
+                    getFileByPath(request.getAbsolutePath())
+            );
+        }
     }
 }
