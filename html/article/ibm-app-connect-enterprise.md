@@ -3,7 +3,7 @@ tags: Разработка, IBM, IBM App Connect Enterprise, IBM Integration Bus
 
 ---
 
-##### Глоссарий
+### Глоссарий
 
 Далее будут использованы следующие сокращения:
 - ACE, также "брокер" - IBM App Connect Enterprise
@@ -11,10 +11,9 @@ tags: Разработка, IBM, IBM App Connect Enterprise, IBM Integration Bus
 - SOA - Service-Oriented Architecture, сервис-ориентированная архитектура
 - ESB - Enterprise Service Bus, сервисная шина предприятия
 
-
 ---
 
-##### Что такое IBM App Connect Enterprise
+### Что такое IBM App Connect Enterprise
 
 IBM App Connect Enterprise - платформа для построения интеграционной шины предрпиятия (Enterprise Service Bus, ESB).
 
@@ -22,7 +21,7 @@ IBM App Connect Enterprise - платформа для построения ин
 
 ---
 
-##### История версий
+### История версий
 
 Наименование продукта:
 - IBM WebSphere Message Broker (до 9 версии)
@@ -35,7 +34,7 @@ IBM App Connect Enterprise V11 является официальным прее�
 
 ---
 
-##### SOA и ESB
+### SOA и ESB
 
 - SOA - подход к разработке больших информационных систем. 
 Предполагает построение системы из множества слабо связанных, самостоятельных компонентов, предоставляющих свой функционал по стандартизированным интерфейсам и протоколам.
@@ -44,7 +43,7 @@ IBM App Connect Enterprise V11 является официальным прее�
 
 ---
 
-##### Зачем это все?
+### Зачем это все?
 Представим, что один крупный банк использует АБС Misys Equation, работающую на серверах IBM&nbsp;System&nbsp;i&nbsp;(AS/400) под ОС&nbsp;i5/OS&nbsp;(OS/400), позволяющую обрабатывать терабайты данных и обладающую необходимыми надежностью и функционалом в таком критичном деле, как учет и движение денег. 
 
 Банк открывает офис с пуфиками, раскрашивает стены супергероями из Marvel и DC, нанимает команду молодых людей с макбуками и ставит задачу написать красивое iOS приложение на Swift.
@@ -55,7 +54,7 @@ IBM App Connect Enterprise V11 является официальным прее�
 
 А дальше бородатый архитектор показывает это:
 
-![AS/400](article/ibm-app-connect-enterprise/as400.jpg)
+![AS/400](ibm-app-connect-enterprise/as400.jpg)
 
 К тому же, брать данные из АБС с помощью фактической эмуляции работы живого человека и ввода данных с клавиатуры в поля зеленого экрана на эмуляции IBM&nbsp;5250 совместимого терминала предстоит также разработчикам клиента на Android, веб-версии для физических и юридических лиц и еще парочке-другой команд.
 
@@ -65,7 +64,7 @@ IBM App Connect Enterprise V11 является официальным прее�
 
 ---
 
-##### SOA и микросервисная архитектура
+### SOA и микросервисная архитектура
 
 Основная статья: [Микросервисы, SOA и API: друзья или враги?](https://www.ibm.com/developerworks/ru/library/1601_clark-trs/index.html)
 
@@ -77,7 +76,7 @@ IBM App Connect Enterprise V11 является официальным прее�
 
 ---
 
-##### Основные функции и возможности ACE
+### Основные функции и возможности ACE
 
 Основная статья: [IBM App Connect Enterprise technical overview](https://www.ibm.com/support/knowledgecenter/en/SSTTDS_11.0.0/com.ibm.etools.mft.doc/ab20551_.htm)
 
@@ -92,7 +91,7 @@ IBM App Connect Enterprise:
 
 ---
 
-##### Приложения и потоки в ACE
+### Приложения и потоки в ACE
 - Единица установки в ACE - приложение (Application), содержащее один или более потоков (Flows), а также ресурсы (ESQL код, Java библиотеки, XSLT файлы и прочее). 
 - Контейнер для одного или нескольких приложений - BAR файл.
 - Потоки разрабатываются в графическом виде и представлены как набор узлов (Nodes), соединенных друг с другом.
@@ -107,7 +106,7 @@ IBM App Connect Enterprise:
 
 ---
 
-##### ACE и IBM MQ
+### ACE и IBM MQ
 - Основным транспортом для потоков являются очереди в IBM MQ.
 - IBM MQ был включен в состав IBM Integration Bus 9 и ранее, но начиная с 10 версии отделен.
 - Некоторые узлы (например, TimeoutNotification) требуют наличия IBM&nbsp;MQ для работы.
@@ -116,7 +115,7 @@ IBM App Connect Enterprise:
 
 ---
 
-##### Инструменты для работы с ACE и MQ
+### Инструменты для работы с ACE и MQ
 - Приложения для ACE разрабатываются в IBM App Connect Enterprise Toolkit.
 - Запуск, остановка и настройка ACE, а также сборка, установка и настройка приложений осуществляется с помощью консольного клиента MQSI (от MQSeries Integrator), устанавливаемого вместе с ACE.
 - Запуск, остановка и настройка MQ осуществляется с помощью консольного клиента MQSC, устанавливаемого вместе с MQ.
@@ -127,16 +126,16 @@ IBM App Connect Enterprise:
 
 ---
 
-##### Архитектура ACE
+### Архитектура ACE
 
 - Integration Server - сервер интеграции (IntegrationServer), ранее DataFlowEngine, предоставляет изолированное окружение для запуска потоков (runtime). Каждый сервер интеграции запускается отдельным процессом в выделенном адресном пространстве. Предназначены для запуска в контейнере или для нужд разработки.
 - Integration Node - узел интеграции, служит для объединения отдельных серверов интеграции с общими настройками. Предназначен для установки на физической или виртуальной машине (on-premise).
 
-![Architecture](article/ibm-app-connect-enterprise/arch.gif)
+![Architecture](ibm-app-connect-enterprise/arch.gif)
 
 ---
 
-##### ACE - Integration Server
+### ACE - Integration Server
 
 Основные статьи:
 - [Execution and threading models in a message flow](https://www.ibm.com/support/knowledgecenter/SSTTDS_11.0.0/com.ibm.etools.mft.doc/ac01541_.htm)
@@ -153,7 +152,7 @@ IntegrationServer запускается и стартует выделенны�
 
 ---
 
-##### Системные процессы ACE
+### Системные процессы ACE
 
 Просмотра данных по утилизации ресурсов на Linux:
 ```
@@ -168,7 +167,7 @@ strace -o foo -ff -p 1049
 
 ---
 
-##### ACE - Global Cache
+### ACE - Global Cache
 
 Потоки в ACE не хранят состояние (после завершения).
 
@@ -181,7 +180,7 @@ Global Cache может быть как встроенным (embedded) в бр�
 
 ---
 
-##### IBM MQ
+### IBM MQ
 
 Высокопроизводительный MOM (Message-Oriented Middleware), предназначенный для передачи любых видов сообщений с гарантией однократной доставки.
 

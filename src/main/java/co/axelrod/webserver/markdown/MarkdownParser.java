@@ -15,6 +15,8 @@ public class MarkdownParser {
 
         int headerLinesLeft = 5;
         for (String line : raw.split("\n")) {
+            System.out.println(line);
+
             if (headerLinesLeft != 0) {
                 if (headerLinesLeft == 5) {
                     response
@@ -52,6 +54,15 @@ public class MarkdownParser {
         if (firstToken == null || firstToken.isBlank() || firstToken.isEmpty()) {
             firstToken = line.strip().split(" ")[0];
             line = line.strip();
+        }
+        if (firstToken.contains("\t")) {
+            firstToken = firstToken.substring(firstToken.indexOf("\t") + 1);
+            line = line.substring(1);
+        }
+
+        if (firstToken.equals("---")) {
+            response.append("<hr>");
+            return;
         }
 
         if (!stack.isEmpty()) {
@@ -100,6 +111,7 @@ public class MarkdownParser {
             return;
         }
 
+        line = processImage(line);
         line = processLink(line);
         line = processBold(line);
         line = processCode(line);
@@ -128,15 +140,26 @@ public class MarkdownParser {
         return line;
     }
 
+    private static String processImage(String line) {
+        if (line.contains("![") && line.contains("](") && line.contains(")")) {
+            String alt = line.substring(line.indexOf("![") + 2, line.indexOf("](", line.indexOf("![") + 2));
+            String src = line.substring(line.indexOf("](") + 2, line.indexOf(")", line.indexOf("](") + 2));
+            return "<img src=\"" + src + "\" alt=\"" + alt + "\">"
+                            + "</img>";
+        }
+        return line;
+    }
+
     private static String processLink(String line) {
-        if (line.contains("[") && line.contains("]") && line.contains("(") && line.contains(")")) {
-            String linkName = line.substring(line.indexOf("[") + 1, line.indexOf("]"));
-            String linkHref = line.substring(line.indexOf("(") + 1, line.indexOf(")"));
-            return line.substring(0, line.indexOf("["))
-                    + "<a href=\"" + linkHref + "\">"
-                    + linkName
-                    + "</a>"
-                    + line.substring(line.indexOf(")") + 1);
+        if (line.contains("[") && line.contains("](") && line.contains(")")) {
+            String linkName = line.substring(line.indexOf("[") + 1, line.indexOf("](", line.indexOf("[") + 1));
+            String linkHref = line.substring(line.indexOf("](") + 2, line.indexOf(")", line.indexOf("](") + 2));
+            String resultLine = line.replace("[" + linkName + "](" + linkHref + ")",
+                    "<a href=\"" + linkHref + "\">"
+                            + linkName
+                            + "</a>");
+
+            return processLink(resultLine);
         }
         return line;
     }

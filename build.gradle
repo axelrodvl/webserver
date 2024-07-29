@@ -21,9 +21,6 @@ repositories {
 }
 
 dependencies {
-    // This dependency is used by the application.
-    implementation 'com.google.guava:guava:29.0-jre'
-
     // Use JUnit Jupiter API for testing.
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.2'
 
@@ -33,7 +30,7 @@ dependencies {
 
 application {
     // Define the main class for the application.
-    mainClassName = 'co.axelrod.App'
+    mainClassName = 'co.axelrod.webserver.WebServer'
 }
 
 test {

@@ -3,7 +3,7 @@ tags: Разработка, Raspberry Pi
 
 ---
 
-##### Чем занять Raspberry Pi
+### Чем занять Raspberry Pi
 
 У многих из нас на полках пылится купленный однажды про запас Raspberry Pi.
 
@@ -23,7 +23,7 @@ tags: Разработка, Raspberry Pi
 Итак, сдуем пыль с малины.
 
 
-##### Бот в помощь
+### Бот в помощь
 Ходить по SSH на домашнюю Linux машину неудобно, небезопасно и требует много лишних телодвижений с сетью.
 
 
@@ -37,7 +37,7 @@ tags: Разработка, Raspberry Pi
 
 Заходите в гости! У меня дома прямо сейчас: http://telegram.me/i_am_at_home_bot.
 
-##### Закупаемся
+### Закупаемся
 В моем случае используется [высокоточный метеодатчик](http://amperka.ru/product/troyka-meteo-sensor?utm_source=man&utm_campaign=troyka-meteo-sensor) на сенсоре [SHT3x-DIS](https://www.sensirion.com/en/environmental-sensors/humidity-sensors/digital-humidity-sensors-for-various-applications), работающий на шине I²C в сборке от компании [Амперка](http://amperka.ru), собранный с удобной разводкой:
 
 ![Telegram бот](raspberry-pi-meteo/amperka-meteo-sensor.jpg)
@@ -66,7 +66,7 @@ tags: Разработка, Raspberry Pi
 Важно не сэкономить на блоке питания. Хотя Raspberry Pi может работать и от power bank, и от любой зарядки - при вполне обычных нагрузках ядро начнет регулярно ругаться на undervoltage.
 
 
-##### Подключаем датчик
+### Подключаем датчик
 Из обязательной распиновки (и в сборке от Амперки) датчик имеет:
 
 - питание (*04 DC Power 5v*),
@@ -96,7 +96,7 @@ P5 I2C - Enable/Disable automatic loading of I2C kernel module
 Would you like the ARM I2C interface to be enabled? - Yes
 ```
 
-##### Проверяем корректность подключения
+### Проверяем корректность подключения
 Копируем скрипт [meteoSensor.py](https://gist.github.com/axelrodvl/d1ce721c2851c8aaa413f337bff418f5) на Pi
 
 При правильном подключении получаем данные:
@@ -107,7 +107,7 @@ Temperature in Fahrenheit is : 64.05 F
 Relative Humidity is : 27.78 %RH
 ```
 
-##### Создаем Telegram бота
+### Создаем Telegram бота
 Открываем Telegram и добавляем бота [BotFather](https://core.telegram.org/bots#3-how-do-i-create-a-bot).
 
 
@@ -116,7 +116,7 @@ Relative Humidity is : 27.78 %RH
 111111111:XXX-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 ```
 
-##### Устанавливаем (или разрабатываем) необходимый софт
+### Устанавливаем (или разрабатываем) необходимый софт
 Для работы с железом на Raspberry Pi часто используют Python, но под все популярные языки программирования обязательно есть удобная библиотека для работы либо с GPIO конкретно Raspberry Pi, либо для работы с конкретной шиной (нам нужна I²C).
 
 
@@ -134,7 +134,7 @@ Relative Humidity is : 27.78 %RH
 
 
 
-##### Запускаем
+### Запускаем
 
 #### 1. Бинарник:
 - Загружаем [сборку](article/raspberry-pi-meteo/raspberry-pi-meteo-bot.jar) и копируем на Raspberry Pi
