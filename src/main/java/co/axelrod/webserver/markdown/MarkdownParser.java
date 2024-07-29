@@ -1,70 +1,46 @@
 package co.axelrod.webserver.markdown;
 
+import co.axelrod.webserver.blog.Template;
+
+import java.util.Arrays;
 import java.util.Stack;
 
 public class MarkdownParser {
-    private static final String START_OF_HTML = "<!DOCTYPE html>\n" +
-            "<html lang=\"en\">\n" +
-            "    <head>\n" +
-            "        <meta charset=\"utf-8\"/>\n" +
-            "        <link rel=\"icon\" href=\"favicon.ico\"/>\n" +
-            "        <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"/>\n" +
-            "        <meta name=\"theme-color\" content=\"#000000\"/>\n" +
-            "        <meta name=\"description\" content=\"Vadim Axelrod\"/>\n" +
-            "        <title>Vadim Axelrod</title>\n" +
-            "<style>\n" +
-            "            .container, .container-fluid, .container-lg, .container-md, .container-sm, .container-xl {\n" +
-            "                width: 100%;\n" +
-            "                padding-right: 15px;\n" +
-            "                padding-left: 15px;\n" +
-            "                margin-right: auto;\n" +
-            "                margin-left:auto\n" +
-            "            }\n" +
-            "\n" +
-            "            @media (min-width: 576px) {\n" +
-            "                .container, .container-sm {\n" +
-            "                    max-width:540px\n" +
-            "                }\n" +
-            "            }\n" +
-            "\n" +
-            "            @media (min-width: 768px) {\n" +
-            "                .container, .container-md, .container-sm {\n" +
-            "                    max-width:720px\n" +
-            "                }\n" +
-            "            }\n" +
-            "\n" +
-            "            @media (min-width: 992px) {\n" +
-            "                .container, .container-lg, .container-md, .container-sm {\n" +
-            "                    max-width:960px\n" +
-            "                }\n" +
-            "            }\n" +
-            "\n" +
-            "            @media (min-width: 1200px) {\n" +
-            "                .container, .container-lg, .container-md, .container-sm, .container-xl {\n" +
-            "                    max-width:1140px\n" +
-            "                }\n" +
-            "            }\n" +
-            "        </style>" +
-            "    </head>\n" +
-            "    <body><div class=\"container\">";
-
-    private static final String END_OF_HTML = "</div></body>\n" +
-            "</html>";
-
-    public static byte[] convertToHtml(byte[] markdown) {
+    public static byte[] convertToHtml(String path, byte[] markdown) {
         String raw = new String(markdown);
 
         Stack<String> stack = new Stack<>();
 
         StringBuilder response = new StringBuilder();
-        response.append(START_OF_HTML);
 
+        int headerLinesLeft = 5;
         for (String line : raw.split("\n")) {
+            if (headerLinesLeft != 0) {
+                if (headerLinesLeft == 5) {
+                    response
+                            .append("<h2>")
+                            .append(line.replace("title: ", ""))
+                            .append("</h2>");
+                }
+                if (headerLinesLeft == 4) {
+                    response
+                            .append("<h3>Tags</h3>")
+                            .append("<ul>");
+
+                    Arrays.stream(line.replace("tags: ", "").split(",")).forEach(tag -> {
+                        response.append("<li>").append(tag).append("</li>");
+                    });
+
+                    response.append("</ul>");
+                }
+                headerLinesLeft--;
+                continue;
+            }
+
             convertString(line, response, stack);
         }
 
-        response.append(END_OF_HTML);
-        return response.toString().getBytes();
+        return Template.getTemplate(path).replace("PLACEHOLDER", response).getBytes();
     }
 
     static void convertString(String line, StringBuilder response, Stack<String> stack) {

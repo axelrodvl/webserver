@@ -20,8 +20,8 @@ public class ArticleService {
                     .map(articlePath -> new File(String.valueOf(articlePath)))
                     .map(articleFile -> {
                         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(articleFile))) {
-                            String title = bufferedReader.readLine();
-                            List<String> tags = Arrays.asList(bufferedReader.readLine().split(","));
+                            String title = bufferedReader.readLine().replace("title: ", "");
+                            List<String> tags = Arrays.asList(bufferedReader.readLine().replace("tags: ", "").split(","));
                             String articlePath = articleFile.getName();
                             return new ArticleDescription(title, tags, articlePath);
                         } catch (IOException e) {

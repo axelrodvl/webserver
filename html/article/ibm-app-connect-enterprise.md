@@ -1,4 +1,7 @@
-Обзор IBM App Connect Enterprise
+title: Обзор IBM App Connect Enterprise
+tags: Разработка, IBM, IBM App Connect Enterprise, IBM Integration Bus
+
+---
 
 ##### Глоссарий
 

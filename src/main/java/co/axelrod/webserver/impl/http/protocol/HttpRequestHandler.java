@@ -47,7 +47,7 @@ public class HttpRequestHandler implements RequestHandler<HttpRequest, HttpRespo
         } else if (request.getAbsolutePath().contains("article")) {
             return new HttpResponse(
                     HttpStatus.OK,
-                    MarkdownParser.convertToHtml(getFileByPath(request.getAbsolutePath()))
+                    MarkdownParser.convertToHtml(rootPath, getFileByPath(request.getAbsolutePath()))
             );
         } else {
             return new HttpResponse(

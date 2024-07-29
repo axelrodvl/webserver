@@ -1,4 +1,7 @@
-Собираем домашнюю метеостанцию с Telegram ботом на Raspberry Pi
+title: Собираем домашнюю метеостанцию с Telegram ботом на Raspberry Pi
+tags: Разработка, Raspberry Pi
+
+---
 
 ##### Чем занять Raspberry Pi
 
