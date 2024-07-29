@@ -4,6 +4,7 @@ import co.axelrod.webserver.blog.Template;
 
 import java.util.Arrays;
 import java.util.Stack;
+import java.util.stream.Collectors;
 
 public class MarkdownParser {
     public static byte[] convertToHtml(String path, byte[] markdown) {
@@ -25,15 +26,11 @@ public class MarkdownParser {
                             .append("</h2>");
                 }
                 if (headerLinesLeft == 4) {
-                    response
-                            .append("<h3>Tags</h3>")
-                            .append("<ul>");
-
-                    Arrays.stream(line.replace("tags: ", "").split(",")).forEach(tag -> {
-                        response.append("<li>").append(tag).append("</li>");
-                    });
-
-                    response.append("</ul>");
+                    response.append("<p>")
+                            .append(Arrays.stream(line.replace("tags: ", "").split(","))
+                                    .map(tag -> "<span class=\"tag\">" + tag.strip() + "</span>")
+                                    .collect(Collectors.joining(" ")))
+                            .append("</p>");
                 }
                 headerLinesLeft--;
                 continue;

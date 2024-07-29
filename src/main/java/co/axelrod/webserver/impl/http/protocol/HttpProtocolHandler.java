@@ -20,6 +20,15 @@ public class HttpProtocolHandler implements ProtocolHandler {
         HttpRequest httpRequest = new HttpRequest(in);
 
         HttpResponse httpResponse = httpRequestHandler.handleRequest(httpRequest);
-        httpResponse.writeResponse(out);
+
+        httpResponse.writeResponse(out, isHtml(httpRequest.getAbsolutePath()));
+    }
+
+    private boolean isHtml(String absolutePath) {
+        boolean isArticle = absolutePath.contains(".md");
+        boolean isPage = absolutePath.charAt(absolutePath.length() - 1) == '/';
+        boolean doesNotContainDot = !absolutePath.contains(".");
+
+        return isArticle || isPage || doesNotContainDot;
     }
 }

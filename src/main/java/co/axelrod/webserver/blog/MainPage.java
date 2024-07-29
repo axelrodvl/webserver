@@ -12,21 +12,24 @@ public class MainPage {
         String articles = ArticleService.parseArticles(path)
                 .stream()
                 .map(articleDescription -> {
-                    return "<div style=\"text-align: center; padding: 1em; margin-top: 1em; margin-bottom: 1em; background-color: #fff; border-radius: .3rem; border-style: solid; border-width: 1px; border-color: #eee\">"
-                            + "<h3>"
-                            + "<a href=\"" + "article/" + articleDescription.getUrl() + "\">" + articleDescription.getTitle() + "</a>"
-                            + "</h3>"
-                            + "<p>" + articleDescription.getTags().stream().collect(Collectors.joining(",")) + "</p>"
-                            + "</div>";
+                    return "<a href=\"" + "article/" + articleDescription.getUrl() + "\" style=\"text-decoration: none;\">"
+                            + "<div class=\"list-card\">"
+                            + "<p style=\"color: #000;\">" + articleDescription.getTitle() + "</p>"
+                            + "<p>" + articleDescription.getTags().stream()
+                            .map(tag -> "<span class=\"tag\">" + tag.strip() + "</span>")
+                            .collect(Collectors.joining(" ")) + "</p>"
+                            + "</div>"
+                            + "</a>";
+
                 })
                 .collect(Collectors.joining());
 
         String projects = getProjects(path);
 
         return Template.getTemplate(path).replace("PLACEHOLDER",
-                "<h2 style=\"text-align: center;\">Articles</h2>"
+                "<h3 style=\"text-align: center; font-weight: normal;\">Articles</h3>"
                         + articles
-                        + "<h2 style=\"text-align: center;\">Projects</h2>"
+                        + "<h3 style=\"text-align: center; font-weight: normal;\">Projects</h3>"
                         + projects);
     }
 
@@ -34,13 +37,14 @@ public class MainPage {
         return ProjectService.parseProjects(path)
                 .stream()
                 .map(projectDescription -> {
-                    return "<div style=\"text-align: center; padding: 1em; margin-top: 1em; margin-bottom: 1em; background-color: #fff; border-radius: .3rem; border-style: solid; border-width: 1px; border-color: #eee\">"
-                            + "<h3>"
-                                + "<a href=\"" + projectDescription.getLink() + "\">" + projectDescription.getName()  + "</a>"
-                            + "</h3>"
-                            + "<p>" + projectDescription.getDescription() + "</p>"
-                            + "<p>Technologies: " + projectDescription.getTags().stream().collect(Collectors.joining(",")) + "</p>"
-                            + "</div>";
+                    return "<a href=\"" + projectDescription.getLink() + "\" style=\"text-decoration: none;\">"
+                            + "<div class=\"list-card\">"
+                            + "<p style=\"color: #000;\">" + projectDescription.getDescription() + "</p>"
+                            + "<p>" + projectDescription.getTags().stream()
+                                .map(tag -> "<span class=\"tag\">" + tag.strip() + "</span>")
+                                .collect(Collectors.joining(" ")) + "</p>"
+                            + "</div>"
+                            + "</a>";
                 })
                 .collect(Collectors.joining());
     }

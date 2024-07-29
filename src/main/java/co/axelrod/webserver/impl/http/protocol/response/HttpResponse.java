@@ -27,12 +27,16 @@ public class HttpResponse extends Response {
         ).getBytes(StandardCharsets.UTF_8);
     }
 
-    public void writeResponse(OutputStream out) throws IOException {
+    public void writeResponse(OutputStream out, boolean isHtml) throws IOException {
         out.write(getStatusLine());
         out.write(getHeader("Server", SERVER));
 
         if (body != null) {
             out.write(getContentLength());
+
+            if (isHtml) {
+                out.write(getHeader("Content-Type", "text/html; charset=UTF-8"));
+            }
             out.write(CRLF.getBytes(StandardCharsets.UTF_8));
             out.write(body);
         }
