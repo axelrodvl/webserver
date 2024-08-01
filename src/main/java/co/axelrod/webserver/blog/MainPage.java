@@ -14,8 +14,9 @@ public class MainPage {
                 .map(articleDescription -> {
                     return "<a href=\"" + "article/" + articleDescription.getUrl() + "\" style=\"text-decoration: none;\">"
                             + "<div class=\"list-card\">"
-                            + "<p style=\"color: #000;\">" + articleDescription.getTitle() + "</p>"
-                            + "<p>" + articleDescription.getTags().stream()
+                            + "<p style=\"color: #000; margin-top: 0; margin-bottom: 0;\">" + articleDescription.getTitle() + "</p>"
+                            + "<p style=\"margin-top: 0.5em; margin-bottom: 0.5em; color: #000\">" + articleDescription.getDate() + "</p>"
+                            + "<p style=\"margin-top: 0; margin-bottom: 0;\">" + articleDescription.getTags().stream()
                             .map(tag -> "<span class=\"tag\">" + tag.strip() + "</span>")
                             .collect(Collectors.joining(" ")) + "</p>"
                             + "</div>"

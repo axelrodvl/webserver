@@ -26,6 +26,12 @@ public class MarkdownParser {
                             .append("</h2>");
                 }
                 if (headerLinesLeft == 4) {
+                    response
+                            .append("<p>")
+                            .append(line.replace("date: ", ""))
+                            .append("</p>");
+                }
+                if (headerLinesLeft == 3) {
                     response.append("<p>")
                             .append(Arrays.stream(line.replace("tags: ", "").split(","))
                                     .map(tag -> "<span class=\"tag\">" + tag.strip() + "</span>")
