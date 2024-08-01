@@ -18,6 +18,7 @@ public class ArticleService {
         try {
             return Files.list(Path.of(path + "/article"))
                     .filter(articlePath -> !Files.isDirectory(articlePath))
+                    .filter(articlePath -> !articlePath.toString().contains(".DS_Store"))
                     .map(articlePath -> new File(String.valueOf(articlePath)))
                     .map(articleFile -> {
                         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(articleFile))) {
