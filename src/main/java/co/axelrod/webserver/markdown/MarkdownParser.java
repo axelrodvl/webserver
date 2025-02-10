@@ -13,6 +13,7 @@ public class MarkdownParser {
         Stack<String> stack = new Stack<>();
 
         StringBuilder response = new StringBuilder();
+        response.append("<div class=\"text\">");
 
         int headerLinesLeft = 5;
         for (String line : raw.split("\n")) {
@@ -21,18 +22,18 @@ public class MarkdownParser {
             if (headerLinesLeft != 0) {
                 if (headerLinesLeft == 5) {
                     response
-                            .append("<h2>")
+                            .append("<h2 style=\"text-align: center;\">")
                             .append(line.replace("title: ", ""))
                             .append("</h2>");
                 }
                 if (headerLinesLeft == 4) {
                     response
-                            .append("<p>")
+                            .append("<p style=\"text-align: center;\">")
                             .append(line.replace("date: ", ""))
                             .append("</p>");
                 }
                 if (headerLinesLeft == 3) {
-                    response.append("<p>")
+                    response.append("<p style=\"text-align: center;\">")
                             .append(Arrays.stream(line.replace("tags: ", "").split(","))
                                     .map(tag -> "<span class=\"tag\">" + tag.strip() + "</span>")
                                     .collect(Collectors.joining(" ")))
@@ -44,6 +45,8 @@ public class MarkdownParser {
 
             convertString(line, response, stack);
         }
+
+        response.append("</div>");
 
         return Template.getTemplate(path).replace("PLACEHOLDER", response).getBytes();
     }
