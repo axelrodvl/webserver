@@ -1,2 +1,2 @@
 #!/bin/sh
-./gradlew clean assemble
+./mvnw clean package
